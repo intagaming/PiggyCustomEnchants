@@ -17,12 +17,9 @@ use pocketmine\utils\TextFormat;
 
 class InfoSubCommand extends BaseSubCommand
 {
-    /** @var PiggyCustomEnchants */
-    protected $plugin;
-
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        if ($sender instanceof Player && $this->plugin->areFormsEnabled()) {
+        if ($sender instanceof Player && $this->getPlugin()->areFormsEnabled()) {
             if (isset($args["enchantment"])) {
                 $enchantment = CustomEnchantManager::getEnchantmentByName($args["enchantment"]);
                 if ($enchantment === null) {
@@ -62,7 +59,7 @@ class InfoSubCommand extends BaseSubCommand
     public function showInfo(Player $player, CustomEnchant $enchantment): void
     {
         $infoForm = new SimpleForm(function (Player $player, ?int $data): void {
-            if ($data !== null) $this->plugin->getServer()->dispatchCommand($player, "ce");
+            if ($data !== null) $this->getPlugin()->getServer()->dispatchCommand($player, "ce");
         });
         $infoForm->setTitle(TextFormat::GREEN . $enchantment->getName() . " Enchantment");
         $infoForm->setContent(TextFormat::GREEN . $enchantment->getDisplayName() . TextFormat::EOL . TextFormat::RESET . "ID: " . $enchantment->getId() . TextFormat::EOL . "Description: " . $enchantment->getDescription() . TextFormat::EOL . "Type: " . Utils::TYPE_NAMES[$enchantment->getItemType()] . TextFormat::EOL . "Rarity: " . Utils::RARITY_NAMES[$enchantment->getRarity()] . TextFormat::EOL . "Max Level: " . $enchantment->getMaxLevel());

@@ -20,18 +20,15 @@ use pocketmine\utils\TextFormat;
 
 class CustomEnchantsCommand extends BaseCommand
 {
-    /** @var PiggyCustomEnchants */
-    protected $plugin;
-
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
         $subcommands = array_values(array_map(function (BaseSubCommand $subCommand): string {
             return $subCommand->getName();
         }, $this->getSubCommands()));
-        if ($sender instanceof Player && $this->plugin->areFormsEnabled()) {
+        if ($sender instanceof Player && $this->getPlugin()->areFormsEnabled()) {
             $form = new SimpleForm(function (Player $player, ?int $data) use ($subcommands): void {
                 if ($data !== null && isset($subcommands[$data])) {
-                    $this->plugin->getServer()->dispatchCommand($player, "ce " . $subcommands[$data]);
+                    $this->getPlugin()->getServer()->dispatchCommand($player, "ce " . $subcommands[$data]);
                 }
             });
             $form->setTitle(TextFormat::GREEN . "PiggyCustomEnchants Menu");

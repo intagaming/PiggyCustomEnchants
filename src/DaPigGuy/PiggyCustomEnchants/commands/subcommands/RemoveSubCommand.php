@@ -17,12 +17,9 @@ use pocketmine\utils\TextFormat;
 
 class RemoveSubCommand extends BaseSubCommand
 {
-    /** @var PiggyCustomEnchants */
-    protected $plugin;
-
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        if ($sender instanceof Player && $this->plugin->areFormsEnabled() && !isset($args["enchantment"])) {
+        if ($sender instanceof Player && $this->getPlugin()->areFormsEnabled() && !isset($args["enchantment"])) {
             $this->onRunForm($sender, $aliasUsed, $args);
             return;
         }
@@ -31,7 +28,7 @@ class RemoveSubCommand extends BaseSubCommand
             $sender->sendMessage("Usage: /ce remove <enchantment> <player>");
             return;
         }
-        $target = empty($args["player"]) ? $sender : $this->plugin->getServer()->getPlayer($args["player"]);
+        $target = empty($args["player"]) ? $sender : $this->getPlugin()->getServer()->getPlayer($args["player"]);
         if (!$target instanceof Player) {
             $sender->sendMessage(TextFormat::RED . "Invalid player.");
             return;
@@ -62,7 +59,7 @@ class RemoveSubCommand extends BaseSubCommand
                         Utils::errorForm($player, TextFormat::RED . "Invalid enchantment.");
                         return;
                     }
-                    $target = $this->plugin->getServer()->getPlayer($data[1]);
+                    $target = $this->getPlugin()->getServer()->getPlayer($data[1]);
                     if (!$target instanceof Player) {
                         Utils::errorForm($player, TextFormat::RED . "Invalid player.");
                         return;

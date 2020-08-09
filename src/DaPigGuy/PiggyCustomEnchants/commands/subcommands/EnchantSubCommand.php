@@ -19,12 +19,9 @@ use pocketmine\utils\TextFormat;
 
 class EnchantSubCommand extends BaseSubCommand
 {
-    /** @var PiggyCustomEnchants */
-    protected $plugin;
-
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        if ($sender instanceof Player && $this->plugin->areFormsEnabled() && !isset($args["enchantment"])) {
+        if ($sender instanceof Player && $this->getPlugin()->areFormsEnabled() && !isset($args["enchantment"])) {
             $this->onRunForm($sender, $aliasUsed, $args);
             return;
         }
@@ -38,7 +35,7 @@ class EnchantSubCommand extends BaseSubCommand
             $sender->sendMessage(TextFormat::RED . "Enchantment level must be an integer");
             return;
         }
-        $target = empty($args["player"]) ? $sender : $this->plugin->getServer()->getPlayer($args["player"]);
+        $target = empty($args["player"]) ? $sender : $this->getPlugin()->getServer()->getPlayer($args["player"]);
         if (!$target instanceof Player) {
             $sender->sendMessage(TextFormat::RED . "Invalid player.");
             return;
@@ -82,7 +79,7 @@ class EnchantSubCommand extends BaseSubCommand
                         Utils::errorForm($player, TextFormat::RED . "Invalid enchantment.");
                         return;
                     }
-                    $target = $this->plugin->getServer()->getPlayer($data[2]);
+                    $target = $this->getPlugin()->getServer()->getPlayer($data[2]);
                     if (!$target instanceof Player) {
                         Utils::errorForm($player, TextFormat::RED . "Invalid player.");
                         return;

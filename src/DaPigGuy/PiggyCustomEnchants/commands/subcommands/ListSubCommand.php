@@ -16,12 +16,9 @@ use pocketmine\utils\TextFormat;
 
 class ListSubCommand extends BaseSubCommand
 {
-    /** @var PiggyCustomEnchants */
-    protected $plugin;
-
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
-        if ($sender instanceof Player && $this->plugin->areFormsEnabled()) {
+        if ($sender instanceof Player && $this->getPlugin()->areFormsEnabled()) {
             $this->sendTypesForm($sender);
             return;
         }
