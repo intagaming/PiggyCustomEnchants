@@ -30,10 +30,10 @@ class TickEnchantmentsTask extends Task
             foreach ($player->getInventory()->getContents() as $slot => $content) {
                 if ($content->getId() === Item::BOOK) {
                     if (count($content->getEnchantments()) > 0) {
-                        $enchantedBook = Item::get(Item::ENCHANTED_BOOK, 0, $content->getCount());
+                        /*$enchantedBook = Item::get(Item::ENCHANTED_BOOK, 0, $content->getCount());
                         $enchantedBook->setCustomName(TextFormat::RESET . TextFormat::YELLOW . "Enchanted Book");
                         $enchantedBook->setNamedTagEntry($content->getNamedTagEntry(Item::TAG_ENCH));
-                        $player->getInventory()->setItem($slot, $enchantedBook);
+                        $player->getInventory()->setItem($slot, $enchantedBook);*/
                         continue;
                     }
                 }
