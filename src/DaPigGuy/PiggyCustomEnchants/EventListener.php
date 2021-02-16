@@ -11,6 +11,7 @@ use DaPigGuy\PiggyCustomEnchants\enchants\tools\DrillerEnchant;
 use DaPigGuy\PiggyCustomEnchants\entities\PiggyTNT;
 use DaPigGuy\PiggyCustomEnchants\utils\ProjectileTracker;
 use DaPigGuy\PiggyCustomEnchants\utils\Utils;
+use minion\event\MinionBlockBreakEvent;
 use pocketmine\block\Block;
 use pocketmine\entity\Entity;
 use pocketmine\entity\object\FallingBlock;
@@ -64,6 +65,12 @@ class EventListener implements Listener
     public function onBreak(BlockBreakEvent $event): void
     {
         $player = $event->getPlayer();
+
+        // Temporarity disable all custom enchants related to Minions
+        if ($event instanceof MinionBlockBreakEvent) {
+            return;
+        }
+
         ReactiveEnchantment::attemptReaction($player, $event);
     }
 
