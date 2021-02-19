@@ -39,7 +39,10 @@ class DrillerEnchant extends RecursiveEnchant
     public function safeReact(Player $player, Item $item, Inventory $inventory, int $slot, Event $event, int $level, int $stack): void
     {
         if ($event instanceof BlockBreakEvent) {
-            $breakFace = self::$lastBreakFace[$player->getName()];
+            $breakFace = self::$lastBreakFace[$player->getName()] ?? null;
+            if ($breakFace === null) {
+                return;
+            }
             for ($i = 0; $i <= $level * $this->extraData["distanceMultiplier"]; $i++) {
                 $block = $event->getBlock()->getSide(Facing::opposite($breakFace), $i);
                 $faceLeft = Facing::rotate($breakFace, Facing::axis($breakFace) !== Facing::AXIS_Y ? Facing::AXIS_Y : Facing::AXIS_X, true);
